@@ -6,6 +6,7 @@ import {onAddToCart, removeAllCart, removeBookFromCart} from "../../action";
 
 
 
+
 const StoreCartTable = ({cartItems, onIncrease, onDelete, onDecrease}) => {
 
     const renderRow = (item, ind) => (<tr key={item.id} >
@@ -47,6 +48,10 @@ const StoreCartTable = ({cartItems, onIncrease, onDelete, onDecrease}) => {
                 {cartItems.map(renderRow)}
                 </tbody>
             </table>
+            <div className='total-container'>
+                <span>Total: </span>
+                <span className='score'>{cartItems.reduce((acc, el)=> acc +el.total, 0)} $</span>
+            </div>
         </div>
     );
 };

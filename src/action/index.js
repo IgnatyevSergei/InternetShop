@@ -1,4 +1,4 @@
-import {getBook} from "../services/book-services";
+
 
 export const FETCH_BOOKS_LOADING = 'FETCH_BOOKS_LOADING'
 export const FETCH_BOOKS_FAILURE = 'FETCH_BOOKS_FAILURE'
@@ -16,7 +16,7 @@ export const booksLoaded = (books) => ({type: FETCH_BOOKS_SUCCESS, payload: book
 
 export const fetchBooks = (service, dispatch) => () => {
     dispatch(booksLoading())
-    service
+    service()
         .then((data) => dispatch(booksLoaded(data)) )
         .catch((error) =>dispatch(booksError(error)) )
 }

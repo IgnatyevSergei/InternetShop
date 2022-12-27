@@ -1,5 +1,4 @@
 
-
 const MOCK_DATA =[
     {
         id: 1,
@@ -18,8 +17,8 @@ const MOCK_DATA =[
 
 ]
 
-
-let getBook = new Promise((resolve)=>{
+export const getBook = () => {
+return new Promise((resolve)=>{
    function randomInteger(min, max) {
        let rand = min + Math.random() * (max + 1 - min);
      return Math.floor(rand);
@@ -28,13 +27,16 @@ let getBook = new Promise((resolve)=>{
    const randomNumber = randomInteger(1, 4);
 
    if (randomNumber === 4) {
-    throw Error
+    throw Error ('Ошибка')
    }
    setTimeout(() => resolve(MOCK_DATA), 500);
-})
+})}
 
 
-export { getBook };
+
+
+
+
 
 
 
