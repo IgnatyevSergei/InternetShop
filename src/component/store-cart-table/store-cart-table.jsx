@@ -2,6 +2,7 @@ import React from 'react';
 import './store-cart-table.css'
 import {connect} from "react-redux";
 import {onAddToCart, removeAllCart, removeBookFromCart} from "../../action";
+import Total from "../total";
 
 
 
@@ -48,10 +49,7 @@ const StoreCartTable = ({cartItems, onIncrease, onDelete, onDecrease}) => {
                 {cartItems.map(renderRow)}
                 </tbody>
             </table>
-            <div className='total-container'>
-                <span>Total: </span>
-                <span className='score'>{cartItems.reduce((acc, el)=> acc +el.total, 0)} $</span>
-            </div>
+            <Total sum={cartItems.reduce((acc, el)=> acc + el.total, 0)} />
         </div>
     );
 };
