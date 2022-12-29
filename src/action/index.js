@@ -6,6 +6,8 @@ export const FETCH_BOOKS_SUCCESS = 'FETCH_BOOKS_SUCCESS'
 export const BOOK_ADDED_TO_CART = 'BOOK_ADDED_TO_CART'
 export const ALL_REMOVE_FROM_CART = 'ALL_REMOVE_FROM_CART'
 export const BOOK_REMOVE_FROM_CART = 'BOOK_REMOVE_FROM_CART'
+export const SUM_PRICE = 'SUM_PRICE'
+export const SUM_ORDER_ITEM = 'SUM_ORDER_ITEM'
 
 
 export const booksLoading = () => ({type: FETCH_BOOKS_LOADING})
@@ -26,3 +28,6 @@ export const onAddToCart = (id) => ({type: BOOK_ADDED_TO_CART, payload:id})
 export const removeBookFromCart = (id) => ({type:BOOK_REMOVE_FROM_CART, payload:id})
 
 export const removeAllCart = (id) => ({type:ALL_REMOVE_FROM_CART , payload:id})
+
+export const sumOrderItem = () => ({type:SUM_ORDER_ITEM})
+export const sumPrice = () => ({type:SUM_PRICE})

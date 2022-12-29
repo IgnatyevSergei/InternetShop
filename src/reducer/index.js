@@ -3,7 +3,7 @@ import {
     BOOK_ADDED_TO_CART, BOOK_REMOVE_FROM_CART,
     FETCH_BOOKS_FAILURE,
     FETCH_BOOKS_LOADING,
-    FETCH_BOOKS_SUCCESS
+    FETCH_BOOKS_SUCCESS, SUM_ORDER_ITEM, SUM_PRICE
 } from "../action";
 
 const initialState = {
@@ -48,11 +48,6 @@ const updateCartItem = (book, item = {}, quantity) => {
         count: count + quantity,
         total: total + quantity * book.price
     }
-
-}
-
-const sumTotalPrice = (cartItems) => {
-   return  cartItems.length===0 ? 0 : cartItems.reduce((acc, el) => acc + el.total, 0)
 
 }
 
@@ -107,7 +102,17 @@ const reducer = (state = initialState, action) => {
             return updateOrder(state, action.payload, -item.count)
 
         }
+        case SUM_ORDER_ITEM:
+            return {
+                ...state,
+                totalOrderItems: state.cartItems.reduce((acc, el) => acc + el.count, 0)
+            }
 
+        case SUM_PRICE:
+            return {
+                ...state,
+                totalPrice: state.cartItems.reduce((acc, el) => acc + el.total, 0)
+            }
 
         default :
             return state

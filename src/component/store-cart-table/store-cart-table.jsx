@@ -1,14 +1,12 @@
 import React from 'react';
 import './store-cart-table.css'
 import {connect} from "react-redux";
-import {onAddToCart, removeAllCart, removeBookFromCart} from "../../action";
+import {onAddToCart, removeAllCart, removeBookFromCart, sumOrderItem, sumPrice} from "../../action";
 import Total from "../total";
+import {bindActionCreators} from "redux";
 
 
-
-
-
-const StoreCartTable = ({cartItems, onIncrease, onDelete, onDecrease}) => {
+const StoreCartTable = ({cartItems, onIncrease, onDelete, onDecrease, totalPrice}) => {
 
     const renderRow = (item, ind) => (<tr key={item.id} >
         <td>{ind+1}</td>
@@ -49,23 +47,39 @@ const StoreCartTable = ({cartItems, onIncrease, onDelete, onDecrease}) => {
                 {cartItems.map(renderRow)}
                 </tbody>
             </table>
-            <Total sum={cartItems.reduce((acc, el)=> acc + el.total, 0)} />
+            <Total sum={totalPrice} />
         </div>
     );
 };
 
 const mapSateToProps = (state) => {
-    console.log(state)
     return {
-    cartItems: state.cartItems
+    cartItems: state.cartItems,
+    totalPrice: state.totalPrice
     }
 }
 
-const mapDispatchToProps =  {
-    onIncrease: onAddToCart,
-    onDelete: removeAllCart,
-    onDecrease: removeBookFromCart
+const mapDispatchToProps = (dispatch) =>  {
+    return bindActionCreators ({
+        onIncrease: (id) => {
+            dispatch (onAddToCart(id))
+            dispatch (sumOrderItem())
+            dispatch (sumPrice())
+        },
+        onDelete: (id) => {
+                dispatch(removeAllCart(id))
+                dispatch(sumOrderItem())
+                dispatch(sumPrice())
+        },
+        onDecrease: (id) => {
+            dispatch(removeBookFromCart(id))
+            dispatch(sumOrderItem())
+            dispatch(sumPrice())
+        }
+        }, dispatch)}
 
-}
+
+
 
 export default connect(mapSateToProps, mapDispatchToProps)(StoreCartTable) ;
+

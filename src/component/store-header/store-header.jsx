@@ -3,9 +3,7 @@ import './store-header.css'
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
-const StoreHeader = ({cartItems}) => {
-
-    const amountItems = cartItems.reduce((acc, el)=> acc + el.count, 0)
+const StoreHeader = ({totalOrderItems}) => {
 
     return (
         <header className='store-header'>
@@ -15,7 +13,7 @@ const StoreHeader = ({cartItems}) => {
             </Link>
             <Link to='/cart' className='shopping-cart'>
                 <i className='cart-icon bi bi-cart-fill'/>
-                Items {amountItems}
+                Items {totalOrderItems}
             </Link>
 
         </header>
@@ -24,7 +22,7 @@ const StoreHeader = ({cartItems}) => {
 
 const mapStateToProps = (state) => {
     return {
-        cartItems: state.cartItems
+        totalOrderItems: state.totalOrderItems
     }
 }
 
