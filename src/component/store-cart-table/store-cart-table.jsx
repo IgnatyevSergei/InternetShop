@@ -55,6 +55,7 @@ const StoreCartTable = ({cartItems, onIncrease, onDelete, onDecrease}) => {
 };
 
 const mapSateToProps = (state) => {
+    console.log(state)
     return {
     cartItems: state.cartItems
     }

@@ -10,7 +10,10 @@ const initialState = {
     isLoading: false,
     books: [],
     hasError: null,
-    cartItems: []
+    cartItems: [],
+    totalPrice: 0,
+    totalOrderItems: 0
+
 }
 
 const updateCartItems = (cartItems, newItem, itemIndex) => {
@@ -48,6 +51,11 @@ const updateCartItem = (book, item = {}, quantity) => {
 
 }
 
+const sumTotalPrice = (cartItems) => {
+   return  cartItems.length===0 ? 0 : cartItems.reduce((acc, el) => acc + el.total, 0)
+
+}
+
 const updateOrder = (state, bookId, quantity) => {
     const {books, cartItems} = state
     const book = books.find(book => book.id === bookId)
@@ -57,10 +65,9 @@ const updateOrder = (state, bookId, quantity) => {
 
     return {
         ...state,
-        cartItems: updateCartItems(cartItems, newItem, itemIndex)
+        cartItems: updateCartItems(cartItems, newItem, itemIndex),
+
     }
-
-
 }
 
 
@@ -88,16 +95,17 @@ const reducer = (state = initialState, action) => {
 
             return updateOrder(state, action.payload, 1)
 
-
         }
 
         case BOOK_REMOVE_FROM_CART: {
             return updateOrder(state, action.payload, -1)
+
         }
 
         case ALL_REMOVE_FROM_CART: {
             const item = state.cartItems.find(({id})=> id === action.payload)
             return updateOrder(state, action.payload, -item.count)
+
         }
 
 
