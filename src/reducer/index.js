@@ -102,17 +102,19 @@ const reducer = (state = initialState, action) => {
             return updateOrder(state, action.payload, -item.count)
 
         }
-        case SUM_ORDER_ITEM:
+        case SUM_ORDER_ITEM: {
             return {
                 ...state,
                 totalOrderItems: state.cartItems.reduce((acc, el) => acc + el.count, 0)
             }
+        }
 
-        case SUM_PRICE:
+        case SUM_PRICE: {
             return {
                 ...state,
                 totalPrice: state.cartItems.reduce((acc, el) => acc + el.total, 0)
             }
+        }
 
         default :
             return state

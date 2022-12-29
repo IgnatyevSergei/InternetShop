@@ -6,7 +6,7 @@ import Spinner from "../spinner";
 import ErrorIndicator from "../error-indicator";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {fetchBooks, onAddToCart} from "../../action";
+import {fetchBooks, onAddToCart, sumOrderItem, sumPrice} from "../../action";
 
 
 class BookList extends Component {
@@ -54,7 +54,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     const {service} = ownProps
     return {
         fetchBooks: fetchBooks(service, dispatch),
-        onAddToCart: (id) => dispatch(onAddToCart(id))
+        onAddToCart: (id) => {
+            dispatch(onAddToCart(id))
+            dispatch(sumOrderItem())
+            dispatch(sumPrice())
+        }
 
     }
 }
